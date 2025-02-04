@@ -1,6 +1,7 @@
 #define PLAY_IMPLEMENTATION
 #define PLAY_USING_GAMEOBJECT_MANAGER
 #include "Play.h"
+#include "Map.h"
 
 int DISPLAY_WIDTH = 640;
 int DISPLAY_HEIGHT = 360;
@@ -15,8 +16,9 @@ void MainGameEntry( PLAY_IGNORE_COMMAND_LINE )
 // Called by PlayBuffer every frame (60 times a second!)
 bool MainGameUpdate( float elapsedTime )
 {
+	Map map1("maps/Map1.txt");
 	Play::ClearDrawingBuffer( Play::cOrange );
-	Play::DrawDebugText( { DISPLAY_WIDTH / 2, DISPLAY_HEIGHT / 2 }, "Hello World!" );
+	Play::DrawDebugText( { DISPLAY_WIDTH / 2, DISPLAY_HEIGHT / 2 }, "Uno, Dos, Tres, Shuuuurdaaa!!!" );
 	Play::PresentDrawingBuffer();
 	return Play::KeyDown( KEY_ESCAPE );
 }
