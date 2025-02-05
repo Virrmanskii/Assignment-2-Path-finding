@@ -19,6 +19,7 @@ Tile::Tile(TileType type, Play::Colour color, int xPos, int yPos)
 
 Tile::~Tile()
 {
+
 }
 
 void Tile::setParent(Tile* parent)

@@ -1,9 +1,14 @@
 #pragma once
 #include "Play.h"
+#include <vector>
+#include <queue>
+using namespace std;
 enum TileType
 {
 	WALKABLE,
-	NOT_WALKABLE
+	NOT_WALKABLE,
+	GOAL,
+	START
 };
 
 struct Offset
@@ -12,12 +17,21 @@ struct Offset
 	const int y = 10;
 };
 
+//struct MinTileCondition
+//{
+//	bool operator()(const Tile* a, const Tile* b) const
+//	{
+//		return a->fCost > b->fCost; // Min-heap condition
+//	}
+//};
+
 class Tile
 {
 public:
 	TileType type;
 	Play::Colour color = Play::cBlack;
 	Tile* parent;
+	vector<Tile*> neighbor;
 	int posX;
 	int posY;
 
