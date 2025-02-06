@@ -100,92 +100,118 @@ void Map::updateNeighbor()
 	{
 		for (int col = 0; col < this->map[row].size(); col++)
 		{
+			if (this->map[row][col]->type == TileType::NOT_WALKABLE)
+			{
+				continue;
+			}
 			//if the tile is not a edge tile, it will have 8 neighbors
 			if (this->map[row][col]->posX > this->minPosX && 
 				this->map[row][col]->posX < this->maxPosX && 
 				this->map[row][col]->posY > this->minPosY && 
 				this->map[row][col]->posY < this->maxPosY)
 			{
-				//this->map[row][col]->neighbor.push_back(this->map[row-1][col-1]);
-				this->map[row][col]->neighbor.push_back(this->map[row-1][col]);
-				//this->map[row][col]->neighbor.push_back(this->map[row-1][col+1]);
-				this->map[row][col]->neighbor.push_back(this->map[row][col-1]);
-				this->map[row][col]->neighbor.push_back(this->map[row][col+1]);
-				//this->map[row][col]->neighbor.push_back(this->map[row+1][col-1]);
-				this->map[row][col]->neighbor.push_back(this->map[row+1][col]);
-				//this->map[row][col]->neighbor.push_back(this->map[row+1][col+1]);
-				continue;
-			}
-			else if (this->map[row][col]->posX == this->minPosX)// Leftest edge
-			{
-				if (this->map[row][col]->posY == this->minPosY)
+				this->map[row][col]->neighbor.push_back(this->map[row - 1][col]); //up
+				this->map[row][col]->neighbor.push_back(this->map[row + 1][col]);// down
+				this->map[row][col]->neighbor.push_back(this->map[row][col - 1]);//left
+				this->map[row][col]->neighbor.push_back(this->map[row][col + 1]);//right
+
+				if (this->map[row-1][col]->type != TileType::NOT_WALKABLE && this->map[row][col + 1]->type != TileType::NOT_WALKABLE)
 				{
-					this->map[row][col]->neighbor.push_back(this->map[row][col + 1]);//right
-					this->map[row][col]->neighbor.push_back(this->map[row-1][col]);//up
-					//this->map[row][col]->neighbor.push_back(this->map[row-1][col + 1]);//up, right
-					continue;
+
+					this->map[row][col]->neighbor.push_back(this->map[row - 1][col + 1]); //up, right
 				}
-				else if(this->map[row][col]->posY == this->maxPosY)
+				if (this->map[row][col + 1]->type != TileType::NOT_WALKABLE && this->map[row +1 ][col]->type != TileType::NOT_WALKABLE)
 				{
-					this->map[row][col]->neighbor.push_back(this->map[row][col + 1]);//right
-					this->map[row][col]->neighbor.push_back(this->map[row + 1][col]);//down
-					//this->map[row][col]->neighbor.push_back(this->map[row+1][col + 1]);//down, right
-					continue;
+					this->map[row][col]->neighbor.push_back(this->map[row + 1][col + 1]);//down, right
 				}
-				else
+				if (this->map[row + 1][col]->type != TileType::NOT_WALKABLE && this->map[row][col - 1]->type != TileType::NOT_WALKABLE)
 				{
-					this->map[row][col]->neighbor.push_back(this->map[row-1][col]);//up
-					//this->map[row][col]->neighbor.push_back(this->map[row-1][col + 1]);//up, right
-					this->map[row][col]->neighbor.push_back(this->map[row][col + 1]);//right
-					//this->map[row][col]->neighbor.push_back(this->map[row+1][col + 1]);//down, right
-					this->map[row][col]->neighbor.push_back(this->map[row+1][col]);//down
-					continue;
+					this->map[row][col]->neighbor.push_back(this->map[row + 1][col - 1]); //down, left 
 				}
-			}
-			else if (this->map[row][col]->posX == this->maxPosX)// Rightest edge
-			{
-				if (this->map[row][col]->posY == this->minPosY)//
+				if (this->map[row][col - 1]->type != TileType::NOT_WALKABLE && this->map[row -1][col]->type != TileType::NOT_WALKABLE)
 				{
-					this->map[row][col]->neighbor.push_back(this->map[row][col - 1]);//left
-					this->map[row][col]->neighbor.push_back(this->map[row-1][col]);//up
-					//this->map[row][col]->neighbor.push_back(this->map[row-1][col - 1]);//up, left
-					continue;
+					this->map[row][col]->neighbor.push_back(this->map[row - 1][col - 1]);// up, left
 				}
-				else if (this->map[row][col]->posY == this->maxPosY)
-				{
-					this->map[row][col]->neighbor.push_back(this->map[row][col-1]);//left
-					this->map[row][col]->neighbor.push_back(this->map[row+1][col]);//down
-					//this->map[row][col]->neighbor.push_back(this->map[row+1][col-1]);//down, left
-					continue;
-				}
-				else
-				{
-					this->map[row][col]->neighbor.push_back(this->map[row-1][col]);//up
-					//this->map[row][col]->neighbor.push_back(this->map[row-1][col-1]);//up, left
-					this->map[row][col]->neighbor.push_back(this->map[row][col-1]);//left
-					//this->map[row][col]->neighbor.push_back(this->map[row+1][col-1]);//down, left
-					this->map[row][col]->neighbor.push_back(this->map[row+1][col]);//down
-					continue;
-				}
-			}
-			else if (this->map[row][col]->posY == this->maxPosY)// Top egde, except double edges
-			{
-				this->map[row][col]->neighbor.push_back(this->map[row][col-1]);//left
-				//this->map[row][col]->neighbor.push_back(this->map[row+1][col-1]);//down, left
-				this->map[row][col]->neighbor.push_back(this->map[row+11][col]);//down
+				//this->map[row][col]->neighbor.push_back(this->map[row-1][col-1]);// up, left
+				//this->map[row][col]->neighbor.push_back(this->map[row-1][col]); //up
+				//this->map[row][col]->neighbor.push_back(this->map[row-1][col+1]); //up, right
+				//this->map[row][col]->neighbor.push_back(this->map[row][col-1]);//left
+				//this->map[row][col]->neighbor.push_back(this->map[row][col+1]);//right
+				//this->map[row][col]->neighbor.push_back(this->map[row+1][col-1]); //down, left 
+				//this->map[row][col]->neighbor.push_back(this->map[row+1][col]);// down
 				//this->map[row][col]->neighbor.push_back(this->map[row+1][col+1]);//down, right
-				this->map[row][col]->neighbor.push_back(this->map[row][col+1]);//right
 				continue;
 			}
-			else if(this->map[row][col]->posY == this->minPosY)// bottom egde, except double edges
-			{
-				this->map[row][col]->neighbor.push_back(this->map[row][col-1]);//left
-				//this->map[row][col]->neighbor.push_back(this->map[row-1][col-1]);//up, left
-				this->map[row][col]->neighbor.push_back(this->map[row-1][col]);//up
-				//this->map[row][col]->neighbor.push_back(this->map[row-1][col+1]);//up, right
-				this->map[row][col]->neighbor.push_back(this->map[row][col+1]);//right
-				continue;
-			}
+			//else if (this->map[row][col]->posX == this->minPosX)// Leftest edge
+			//{
+			//	if (this->map[row][col]->posY == this->minPosY)
+			//	{
+			//		this->map[row][col]->neighbor.push_back(this->map[row][col + 1]);//right
+			//		this->map[row][col]->neighbor.push_back(this->map[row-1][col]);//up
+			//		//this->map[row][col]->neighbor.push_back(this->map[row-1][col + 1]);//up, right
+			//		continue;
+			//	}
+			//	else if(this->map[row][col]->posY == this->maxPosY)
+			//	{
+			//		this->map[row][col]->neighbor.push_back(this->map[row][col + 1]);//right
+			//		this->map[row][col]->neighbor.push_back(this->map[row + 1][col]);//down
+			//		//this->map[row][col]->neighbor.push_back(this->map[row+1][col + 1]);//down, right
+			//		continue;
+			//	}
+			//	else
+			//	{
+			//		this->map[row][col]->neighbor.push_back(this->map[row-1][col]);//up
+			//		//this->map[row][col]->neighbor.push_back(this->map[row-1][col + 1]);//up, right
+			//		this->map[row][col]->neighbor.push_back(this->map[row][col + 1]);//right
+			//		//this->map[row][col]->neighbor.push_back(this->map[row+1][col + 1]);//down, right
+			//		this->map[row][col]->neighbor.push_back(this->map[row+1][col]);//down
+			//		continue;
+			//	}
+			//}
+			//else if (this->map[row][col]->posX == this->maxPosX)// Rightest edge
+			//{
+			//	if (this->map[row][col]->posY == this->minPosY)//
+			//	{
+			//		this->map[row][col]->neighbor.push_back(this->map[row][col - 1]);//left
+			//		this->map[row][col]->neighbor.push_back(this->map[row-1][col]);//up
+			//		//this->map[row][col]->neighbor.push_back(this->map[row-1][col - 1]);//up, left
+			//		continue;
+			//	}
+			//	else if (this->map[row][col]->posY == this->maxPosY)
+			//	{
+			//		this->map[row][col]->neighbor.push_back(this->map[row][col-1]);//left
+			//		this->map[row][col]->neighbor.push_back(this->map[row+1][col]);//down
+			//		//this->map[row][col]->neighbor.push_back(this->map[row+1][col-1]);//down, left
+			//		continue;
+			//	}
+			//	else
+			//	{
+			//		this->map[row][col]->neighbor.push_back(this->map[row-1][col]);//up
+			//		//this->map[row][col]->neighbor.push_back(this->map[row-1][col-1]);//up, left
+			//		this->map[row][col]->neighbor.push_back(this->map[row][col-1]);//left
+			//		//this->map[row][col]->neighbor.push_back(this->map[row+1][col-1]);//down, left
+			//		this->map[row][col]->neighbor.push_back(this->map[row+1][col]);//down
+			//		continue;
+			//	}
+			//}
+			//else if (this->map[row][col]->posY == this->maxPosY)// Top egde, except double edges
+			//{
+			//	this->map[row][col]->neighbor.push_back(this->map[row][col-1]);//left
+			//	//this->map[row][col]->neighbor.push_back(this->map[row+1][col-1]);//down, left
+			//	this->map[row][col]->neighbor.push_back(this->map[row+11][col]);//down
+			//	//this->map[row][col]->neighbor.push_back(this->map[row+1][col+1]);//down, right
+			//	this->map[row][col]->neighbor.push_back(this->map[row][col+1]);//right
+			//	continue;
+			//}
+			//else if(this->map[row][col]->posY == this->minPosY)// bottom egde, except double edges
+			//{
+			//	this->map[row][col]->neighbor.push_back(this->map[row][col-1]);//left
+			//	//this->map[row][col]->neighbor.push_back(this->map[row-1][col-1]);//up, left
+			//	this->map[row][col]->neighbor.push_back(this->map[row-1][col]);//up
+			//	//this->map[row][col]->neighbor.push_back(this->map[row-1][col+1]);//up, right
+			//	this->map[row][col]->neighbor.push_back(this->map[row][col+1]);//right
+			//	continue;
+			//}
 		}
 	}
 }

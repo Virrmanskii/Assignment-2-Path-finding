@@ -35,7 +35,7 @@ vector<Tile*> AStar::findPath(Tile* start, Tile* target)
 		closedSet.insert(currentTile);
 
 		for (Tile* neighbor : currentTile->neighbor) {
-			if (neighbor->type == NOT_WALKABLE || closedSet.find(neighbor) != closedSet.end())
+			if (neighbor->type == NOT_WALKABLE || closedSet.find(neighbor) != closedSet.end())//if (neighbor->type == NOT_WALKABLE || closedSet.find(neighbor) != closedSet.end())
 			{
 				continue; // Skip obstacles and already evaluated tiles
 			}
@@ -43,13 +43,15 @@ vector<Tile*> AStar::findPath(Tile* start, Tile* target)
 			// Calculate movement cost
 			int dx = abs(currentTile->posX - neighbor->posX);
 			int dy = abs(currentTile->posY - neighbor->posY);
-			int movementCost = (dx == 1 && dy == 1) ? 14 : 10; // Diagonal or straight
+			int movementCost = (dx == 10 && dy == 10) ? 14 : 10; // Diagonal or straight
 
 			//int tentativeGCost = current.cost.gCost + movementCost;
-			int tentativeGCost = current.cost.gCost;
+			AStarCost neighborCost;
+			//int tentativeGCost = current.cost.gCost + neighborCost.calculateHCost(currentTile, neighbor);
+			int tentativeGCost = current.cost.gCost + movementCost;
 
 			bool isBetterPath = false;
-			AStarCost neighborCost;
+			//AStarCost neighborCost;
 
 
 			if (neighbor->parent == nullptr || tentativeGCost < neighborCost.gCost)
