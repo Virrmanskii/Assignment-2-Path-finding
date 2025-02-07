@@ -27,6 +27,9 @@
     <ClCompile Include="TileWithCost.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BreadthFirst.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Play.h">
@@ -48,6 +51,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TileWithCost.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BreadthFirst.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

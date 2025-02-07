@@ -110,27 +110,54 @@ void Map::updateNeighbor()
 				this->map[row][col]->posY > this->minPosY && 
 				this->map[row][col]->posY < this->maxPosY)
 			{
-				this->map[row][col]->neighbor.push_back(this->map[row - 1][col]); //up
-				this->map[row][col]->neighbor.push_back(this->map[row + 1][col]);// down
-				this->map[row][col]->neighbor.push_back(this->map[row][col - 1]);//left
-				this->map[row][col]->neighbor.push_back(this->map[row][col + 1]);//right
+				if (this->map[row - 1][col]->type != TileType::NOT_WALKABLE)
+				{
+					this->map[row][col]->neighbor.push_back(this->map[row - 1][col]); //up
+				}
+				
+				if (this->map[row + 1][col]->type != TileType::NOT_WALKABLE)
+				{
+					this->map[row][col]->neighbor.push_back(this->map[row + 1][col]);// down
+				}
+				
+				if (this->map[row][col - 1]->type != TileType::NOT_WALKABLE)
+				{
+					this->map[row][col]->neighbor.push_back(this->map[row][col - 1]);//left
+				}
+				
+				if (this->map[row][col + 1]->type != TileType::NOT_WALKABLE)
+				{
+					this->map[row][col]->neighbor.push_back(this->map[row][col + 1]);//right
+				}
+				
 
 				if (this->map[row-1][col]->type != TileType::NOT_WALKABLE && this->map[row][col + 1]->type != TileType::NOT_WALKABLE)
 				{
-
-					this->map[row][col]->neighbor.push_back(this->map[row - 1][col + 1]); //up, right
+					if (this->map[row - 1][col + 1]->type != TileType::NOT_WALKABLE)
+					{
+						this->map[row][col]->neighbor.push_back(this->map[row - 1][col + 1]); //up, right
+					}
 				}
 				if (this->map[row][col + 1]->type != TileType::NOT_WALKABLE && this->map[row +1 ][col]->type != TileType::NOT_WALKABLE)
 				{
-					this->map[row][col]->neighbor.push_back(this->map[row + 1][col + 1]);//down, right
+					if (this->map[row + 1][col + 1]->type != TileType::NOT_WALKABLE)
+					{
+						this->map[row][col]->neighbor.push_back(this->map[row + 1][col + 1]);//down, right
+					}
 				}
 				if (this->map[row + 1][col]->type != TileType::NOT_WALKABLE && this->map[row][col - 1]->type != TileType::NOT_WALKABLE)
 				{
-					this->map[row][col]->neighbor.push_back(this->map[row + 1][col - 1]); //down, left 
+					if (this->map[row + 1][col - 1]->type != TileType::NOT_WALKABLE)
+					{
+						this->map[row][col]->neighbor.push_back(this->map[row + 1][col - 1]); //down, left
+					} 
 				}
 				if (this->map[row][col - 1]->type != TileType::NOT_WALKABLE && this->map[row -1][col]->type != TileType::NOT_WALKABLE)
 				{
-					this->map[row][col]->neighbor.push_back(this->map[row - 1][col - 1]);// up, left
+					if (this->map[row - 1][col - 1]->type != TileType::NOT_WALKABLE)
+					{
+						this->map[row][col]->neighbor.push_back(this->map[row - 1][col - 1]);// up, left
+					}
 				}
 				//this->map[row][col]->neighbor.push_back(this->map[row-1][col-1]);// up, left
 				//this->map[row][col]->neighbor.push_back(this->map[row-1][col]); //up

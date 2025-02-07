@@ -4,6 +4,7 @@
 //#include "Constants.h"
 #include "Map.h"
 #include "AStar.h"
+#include "BreadthFirst.h"
 #include <chrono>
 #include <string>
 
@@ -11,6 +12,7 @@
 
 Map map1("maps/Map3.txt");
 AStar aStar;
+BreadthFirst* bfs;
 long long dur;
 
 // The entry point for a PlayBuffer program
@@ -20,12 +22,18 @@ void MainGameEntry( PLAY_IGNORE_COMMAND_LINE )
 	map1.updateNeighbor();
 	using namespace std::chrono;
 	auto start = high_resolution_clock::now();
-	vector<Tile*> path = aStar.findPath(map1.start, map1.target);
+
+	vector<Tile*> path = bfs->findPath(map1.start, map1.target);
+	//vector<Tile*> path = aStar.findPath(map1.start, map1.target);
+
+
 	auto stop = high_resolution_clock::now();
 	auto duration = duration_cast<microseconds>(stop - start);
 	dur = duration.count();
 	
-	aStar.drawPath(path);
+	bfs->drawPath(path);
+	//aStar.drawPath(path);
+
 	
 }
 

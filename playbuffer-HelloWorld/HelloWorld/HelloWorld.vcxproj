@@ -192,6 +192,7 @@
   <ItemGroup>
     <ClCompile Include="AStar.cpp" />
     <ClCompile Include="AStarCost.cpp" />
+    <ClCompile Include="BreadthFirst.cpp" />
     <ClCompile Include="MainGame.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
@@ -204,6 +205,7 @@
     <ClInclude Include="..\Play.h" />
     <ClInclude Include="AStar.h" />
     <ClInclude Include="AStarCost.h" />
+    <ClInclude Include="BreadthFirst.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Tile.h" />
