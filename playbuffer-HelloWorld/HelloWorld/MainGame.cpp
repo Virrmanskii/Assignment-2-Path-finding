@@ -29,8 +29,8 @@ void MainGameEntry( PLAY_IGNORE_COMMAND_LINE )
 	//vector<Tile*> path = bfs->findPath(map1.start, map1.target);
 	//vector<Tile*> path = dfs->findPath(map1.start, map1.target);
 	//vector<Tile*> path = aStar.findPath(map1.start, map1.target);
-	//vector<Tile*> path = aStar.findPath(map1.target, map1.start);
-	vector<Tile*> path = aStar.findPathBidirectional(map1.start, map1.target);
+	vector<Tile*> path = aStar.findPath(map1.target, map1.start);
+	//vector<Tile*> path = aStar.findPathBidirectional(map1.start, map1.target);
 
 
 	auto stop = high_resolution_clock::now();
