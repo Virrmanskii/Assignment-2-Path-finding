@@ -5,6 +5,7 @@
 #include "Map.h"
 #include "AStar.h"
 #include "BreadthFirst.h"
+#include "DeapthFirst.h"
 #include <chrono>
 #include <string>
 
@@ -13,6 +14,7 @@
 Map map1("maps/Map3.txt");
 AStar aStar;
 BreadthFirst* bfs;
+DeapthFirst* dfs;
 long long dur;
 
 // The entry point for a PlayBuffer program
@@ -21,18 +23,22 @@ void MainGameEntry( PLAY_IGNORE_COMMAND_LINE )
 	Play::CreateManager( DISPLAY_WIDTH, DISPLAY_HEIGHT, DISPLAY_SCALE );
 	map1.updateNeighbor();
 	using namespace std::chrono;
+
 	auto start = high_resolution_clock::now();
 
-	vector<Tile*> path = bfs->findPath(map1.start, map1.target);
+	//vector<Tile*> path = bfs->findPath(map1.start, map1.target);
+	//vector<Tile*> path = dfs->findPath(map1.start, map1.target);
 	//vector<Tile*> path = aStar.findPath(map1.start, map1.target);
+	//vector<Tile*> path = aStar.findPath(map1.target, map1.start);
+	vector<Tile*> path = aStar.findPathBidirectional(map1.start, map1.target);
 
 
 	auto stop = high_resolution_clock::now();
 	auto duration = duration_cast<microseconds>(stop - start);
 	dur = duration.count();
 	
-	bfs->drawPath(path);
-	//aStar.drawPath(path);
+	//bfs->drawPath(path);
+	aStar.drawPath(path);
 
 	
 }
