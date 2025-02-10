@@ -27,7 +27,7 @@ vector<Tile*> BreadthFirst::findPath(Tile* start, Tile* target)
                 }
 
                 visited[neighbor] = true;
-                neighbor->color = Play::cCyan;
+                //neighbor->color = Play::cCyan;
                 q.push(BreadthFirstTile(neighbor));
                 
             }

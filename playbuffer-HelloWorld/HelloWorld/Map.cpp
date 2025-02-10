@@ -119,7 +119,7 @@ void Map::updateNeighbor()
 				{
 					this->map[row][col]->neighbor.push_back(this->map[row + 1][col]);// down
 				}
-				
+				 
 				if (this->map[row][col - 1]->type != TileType::NOT_WALKABLE)
 				{
 					this->map[row][col]->neighbor.push_back(this->map[row][col - 1]);//left
